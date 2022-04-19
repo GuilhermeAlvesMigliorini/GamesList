@@ -16,8 +16,8 @@ function Games() {
       if(gameData.name != null){
         return(
           <div>
-            <h1>{gameData.name}</h1>
-            <img src={gameData.background_image} alt={gameData.name} />
+            <h3>{gameData.name}</h3>
+            <img src={gameData.short_screenshots.at(1).image} alt={gameData.name} />
           </div>
           
         )

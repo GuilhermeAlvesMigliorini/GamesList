@@ -1,9 +1,10 @@
-import Games from "./Games"
+
+import Popular from "./Popular"
 
 function Home() {
   return (
     <div>
-      <Games/>
+      <Popular/>
     </div>
   )
 }
