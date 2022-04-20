@@ -1,61 +1,89 @@
+import { useEffect, useState } from "react"
 import styled from "styled-components"
-import Games from "./Games"
 
 function Popular() {
+  
+  const [popular, setPopular] = useState([])
+  useEffect(() => {
+    getPopular()
+  },[])
+  const apiKey = "c348e769ad414a7d837ab9698b8abce2"
+  const search = "monster-hunter-world"
+
+  const getPopular = async () =>{
+    const api = await fetch('/api'+`?&key=${apiKey}&search=${search}`)
+    const data = await api.json()
+    console.log(data)
+    setPopular(data.results)
+  }
+ 
+
+
+
+
+
   return (
+    <div><StlH3>Popular Games</StlH3>
     <Container>
-      <h1>Popular Games</h1>
-      <ul>
-        <li><Games/></li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-        <li>11</li>
-        <li>12</li>
-        <li>13</li>
-        <li>14</li>
-        <li>15</li>
-        <li>16</li>
-        <li>17</li>
-        <li>18</li>
-      </ul>
-    </Container>
+    {popular.map((game) => {
+      return(
+        <Card>
+          <p key={game.id}>{game.name}</p>
+          <img src={game.short_screenshots.at(0).image} alt={game.name} />
+        </Card>
+          
+       
+      )
+    })}
+     </Container>
+    </div>
   )
 }
 
 export default Popular
 
+const StlH3 = styled.h3`
+color: #2EA7F2;
+`
+
 const Container = styled.div`
-padding: 2rem;
-margin: 4rem 10vw;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+grid-gap: 2rem;
+margin:4rem 10vw;
+`
+const Card = styled.div`
+min-height: 25rem;
+border-radius: 2rem;
+overflow: hidden;
+position: relative;
 
+img{
+  border-radius: 2rem;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+p{
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 20rem;
+  margin-bottom: 0% auto;
+  transform: translate(-50%, 0%);
+  color: #2EA7F2;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .5);
 
-  h1{
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 3rem;
-    color: #F24444;
-  }
-  ul{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-gap: 2rem;
-  }
-
- li{
-   background-color: #404040;
-   height: 18rem;
-   border-radius: 1rem;
- }
-
- img{
-   width: 30rem;
- }
+}
 `
