@@ -7,21 +7,16 @@ function Popular() {
   useEffect(() => {
     getPopular()
   },[])
-  const apiKey = "c348e769ad414a7d837ab9698b8abce2"
-  const search = "monster-hunter-world"
+  const apiKey = ""
+  const search = "monster-hunter"
 
   const getPopular = async () =>{
-    const api = await fetch('/api'+`?&key=${apiKey}&search=${search}`)
+    const api = await fetch('/api'+`?&key=${apiKey}&search=${search}&search_exact`)
     const data = await api.json()
     console.log(data)
     setPopular(data.results)
   }
  
-
-
-
-
-
   return (
     <div><StlH3>Popular Games</StlH3>
     <Container>
@@ -31,8 +26,6 @@ function Popular() {
           <p key={game.id}>{game.name}</p>
           <img src={game.short_screenshots.at(0).image} alt={game.name} />
         </Card>
-          
-       
       )
     })}
      </Container>
@@ -84,6 +77,5 @@ p{
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
-
 }
 `
